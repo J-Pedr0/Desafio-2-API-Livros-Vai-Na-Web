@@ -47,7 +47,7 @@ def doar():
                      """, (titulo, categoria, autor, image_url))
         conn.commit()
 
-        return jsonify({"mensagem": "Livro cadastrado com secesso"}, 201)
+        return jsonify({"mensagem": "Livros cadastrados com secesso"}, 201)
 
 
 @app.route('/livros', methods=['GET'])
@@ -74,13 +74,13 @@ def listar_livros():
 def deletar_livro(livro_id):
     with sqlite3.connect('database.db') as conn:
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM livros WHERE id = ?", (livro_id,))
+        cursor.execute(f"DELETE FROM livros WHERE id={livro_id}")
         conn.commit()
 
     if cursor.rowcount == 0:
-        return jsonify({"erro": "Livro não encontrado"}), 404
+        return jsonify({"mensagem": "Livro não encontrado"}), 404
 
-    return jsonify({"mensagem": "Livro deletado com sucesso"}), 200
+    return jsonify({"mensagem": "Livro excluído com sucesso"}), 200
 
 
 if __name__ == '__main__':
